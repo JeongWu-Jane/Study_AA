@@ -1,0 +1,35 @@
+webpack --config webpack.pc.config.js   --> jsx를 js로 변경 build
+application run  --> java run
+
+# webpack
+## webpack이란
+- 수많은 자바스크립트 파일을 하나의 파일로 묶어(bundle) 네트워크 비용 최소화
+
+## [webpack.pc.config.js]
+- path: bundle의 엔트리와 아웃풋의 경로 설정에 쓰임
+- mode: prd? dev?
+
+### export 설정
+- 다른 파일에서 import(require) 하기 때문에 module.exports 설정
+- entry : bundle되는 코드들의 맨 처음 시작점이 되는 파일
+- output : entry 파일로부터 bundling 한 결과물 설정하는 단계
+  - /src/main/resources/static/js/build 경로에 번들링 결과인 [name].js 쌓임
+
+### path.join() vs path.resolve()
+- join(): 인자들을 모두 concat
+- resolve(): 인자들을 루트로 인식
+ ```
+path.join('/a', '/b') // Outputs '/a/b'
+
+path.resolve('/a', '/b') // Outputs '/b'
+```
+
+### 로더
+- `test: /\.js(x)?$/,` : js나 jsx를 발견하면
+- `loader: 'babel-loader'` : babel-loader 통해서 jsx -> js로 변환
+- `exclude: /node_modules/` : node_modules 폴더 제외
+- presets: 바벨이 어떻게 코드를 변환할지에 대한 룰을 정의한 플러그인의 집합
+- plugins: bundle 된 결과물 처리
+  - HtmlWebpackPlugin :공백이나 주석 제거 옵션 추가 가능
+  - CleanWebpackPlugin : 빌드할때마다 설정한 폴더 clean
+* 바벨: ES6+ 버전 이상의 자바스크립트나 JSX, 타입스크립트 코드를 하위 버전의 자바스크립트 코드로 변환 시켜 다른 브라우저에서 동작할 수 있도록 하는 역할
